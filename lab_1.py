@@ -21,7 +21,7 @@ main_array = random_array[:]
 print(F"random arr = {random_array}\n"
       F"main arr = {main_array}")  # Виведення згенерованого масиву
 
-#
+
 # BubbleSort
 def BubbleSort(main_array):
     n = len(main_array)
