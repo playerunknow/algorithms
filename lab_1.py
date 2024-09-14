@@ -3,6 +3,18 @@
 import random  # Імпортуємо модуль для генерації випадкових чисел
 import time
 
+
+def timeit(func):
+    def wrapper(*args, **kwargs):
+        start_time = time.perf_counter()
+        result = func(*args, **kwargs)
+        end_time = time.perf_counter()
+        execution_time = end_time - start_time
+        print(f"execution_time {func.__name__}: {execution_time:.4f} секунд \n")
+        return result
+    return wrapper
+
+
 def generate_random_array(n, lower_bound=0, upper_bound=100):
     """
     Генерує випадковий масив із n елементів у діапазоні від lower_bound до upper_bound.
@@ -15,13 +27,7 @@ def generate_random_array(n, lower_bound=0, upper_bound=100):
     return [random.randint(lower_bound, upper_bound) for _ in range(n)]
 
 
-# Виклик функції для створення масиву з 20 випадкових чисел
-random_array = generate_random_array(5000, 0, 10000)
-main_array = random_array[:]
-print(F"random arr = {random_array}\n"
-      F"main arr = {main_array}")  # Виведення згенерованого масиву
-
-
+@timeit
 # BubbleSort
 def BubbleSort(main_array):
     n = len(main_array)
@@ -30,9 +36,8 @@ def BubbleSort(main_array):
             if main_array[j] > main_array[j + 1]:
                 main_array[j], main_array[j + 1] = main_array[j + 1], main_array[j]
 
-    print("Sorted array:", main_array)
 
-
+@timeit
 # InsertionSort
 def InsertionSort(main_array):
     n = len(main_array)
@@ -44,10 +49,9 @@ def InsertionSort(main_array):
                 insert_index = j
         main_array.insert(insert_index, current_value)
 
-    print("Sorted array with InsertionSort:", main_array)
-
 
 # QuickSort
+
 def quicksort(main_array):
     # Якщо масив містить один або менше елементів, він вже відсортований
     if len(main_array) <= 1:
@@ -70,19 +74,16 @@ def quicksort(main_array):
     return quicksort(left) + middle + quicksort(right)
 
 
-quicksort(main_array)
-print(main_array)
-
-
 # Hoare's QuickSort
-def quicksort(main_array, low, high):
+def quicksortHoare(main_array, low, high):
     if low < high:
         # Отримати індекс поділу
         pi = partition(main_array, low, high)
 
         # Рекурсивно сортувати елементи перед і після поділу
-        quicksort(main_array, low, pi)
-        quicksort(main_array, pi + 1, high)
+        quicksortHoare(main_array, low, pi)
+        quicksortHoare(main_array, pi + 1, high)
+
 
 def partition(main_array, low, high):
     # Вибрати середній елемент як опорний
@@ -109,8 +110,28 @@ def partition(main_array, low, high):
         main_array[i], main_array[j] = main_array[j], main_array[i]
 
 
-# Приклад використання:
-quicksort(main_array, 0, len(main_array) - 1)
-print("Відсортований масив:", main_array)
+# Виклик функції для створення масиву з 20 випадкових чисел
+random_array = generate_random_array(10000, 0, 10000)
+main_array = random_array[:]
+# print(F"random arr = {random_array}\n"
+#       F"main arr = {main_array}")  # Виведення згенерованого масиву
 
 
+BubbleSort(main_array)
+main_array = random_array[:]
+InsertionSort(main_array)
+main_array = random_array[:]
+
+start_time = time.perf_counter()
+quicksort(main_array)
+end_time = time.perf_counter()
+execution_time = end_time - start_time
+print("execution_time quicksort time =", round(execution_time, 4), "\n")
+
+main_array = random_array[:]
+
+start_time = time.perf_counter()
+quicksortHoare(main_array, 0, len(main_array) - 1)
+end_time = time.perf_counter()
+execution_time = end_time - start_time
+print("execution_time quicksortHoare =", round(execution_time, 4), "\n")
