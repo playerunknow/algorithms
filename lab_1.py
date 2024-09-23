@@ -111,36 +111,42 @@ def partition(main_array, low, high):
 
 
 # Виклик функції для створення масиву з 20 випадкових чисел
-random_array = generate_random_array(10000, 0, 10000)
-main_array = random_array[:]
-# print(F"random arr = {random_array}\n"
-#       F"main arr = {main_array}")  # Виведення згенерованого масиву
+random_array1 = generate_random_array(1000, 0, 10000)
+random_array2 = generate_random_array(2000, 0, 10000)
+random_array3 = generate_random_array(3000, 0, 10000)
+random_array4 = generate_random_array(4000, 0, 10000)
+random_array5 = generate_random_array(5000, 0, 10000)
+random_array6 = generate_random_array(6000, 0, 10000)
 
 
-BubbleSort(main_array)
+def calculation(random_array):
 
-main_array = random_array[:]
-print(main_array)
+    main_array = random_array[:]
+    BubbleSort(main_array)
 
-InsertionSort(main_array)
+    main_array = random_array[:]
+    InsertionSort(main_array)
 
-main_array = random_array[:]
-print(main_array)
+    main_array = random_array[:]
+    start_time = time.perf_counter()
+    quicksort(main_array)
+    end_time = time.perf_counter()
+    execution_time = end_time - start_time
+    print("execution_time quicksort time =", round(execution_time, 4), "\n")
 
-start_time = time.perf_counter()
-quicksort(main_array)
-end_time = time.perf_counter()
-execution_time = end_time - start_time
-print("execution_time quicksort time =", round(execution_time, 4), "\n")
+    main_array = random_array[:]
+    start_time = time.perf_counter()
+    quicksortHoare(main_array, 0, len(main_array) - 1)
+    end_time = time.perf_counter()
+    execution_time = end_time - start_time
+    print("execution_time quicksortHoare =", round(execution_time, 4), "\n")
 
-main_array = random_array[:]
-print(main_array)
+    print('\n\n\n\n\n\n\n')
 
-start_time = time.perf_counter()
-quicksortHoare(main_array, 0, len(main_array) - 1)
-end_time = time.perf_counter()
-execution_time = end_time - start_time
-print("execution_time quicksortHoare =", round(execution_time, 4), "\n")
 
-main_array = random_array[:]
-print(main_array)
+calculation(random_array1)
+calculation(random_array2)
+calculation(random_array3)
+calculation(random_array4)
+calculation(random_array5)
+calculation(random_array6)
