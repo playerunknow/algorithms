@@ -118,9 +118,14 @@ main_array = random_array[:]
 
 
 BubbleSort(main_array)
+
 main_array = random_array[:]
+print(main_array)
+
 InsertionSort(main_array)
+
 main_array = random_array[:]
+print(main_array)
 
 start_time = time.perf_counter()
 quicksort(main_array)
@@ -129,9 +134,13 @@ execution_time = end_time - start_time
 print("execution_time quicksort time =", round(execution_time, 4), "\n")
 
 main_array = random_array[:]
+print(main_array)
 
 start_time = time.perf_counter()
 quicksortHoare(main_array, 0, len(main_array) - 1)
 end_time = time.perf_counter()
 execution_time = end_time - start_time
 print("execution_time quicksortHoare =", round(execution_time, 4), "\n")
+
+main_array = random_array[:]
+print(main_array)
